@@ -1,16 +1,29 @@
 import java.util.Scanner;
-public class practice_02_08 {
-    static int cardConvR(int x, int r, char[] d){
+public class question_02_07 {
+    static int cardConv(int x, int r, char[] d){
         int digits=0;
         String dchar="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-        do{
+        System.out.printf("%2d|%10d\n",r,x);
+        System.out.println("  +-----------");
+        while(x!=0){
             d[digits++]=dchar.charAt(x%r);
             x/=r;
-        }while(x!=0);
+            if(x==0)break;
+            System.out.printf("%2d|%10d  ... %c\n",r,x,d[digits-1]);
+            System.out.println("  +-----------");
+        }
+        System.out.printf("%13d  ... %c\n",x,d[digits-1]);
+        reverse(d);
         return digits;
     }
-
+    static void swap(char[] a, int idx1, int idx2){
+        char t=a[idx1];a[idx1]=a[idx2];a[idx2]=t;
+    }
+    static void reverse(char[] a){
+        for(int i=0;i<a.length/2;i++){
+            swap(a,i,a.length-1-i);
+        }
+    }
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         int no,cd,dno,retry;
@@ -28,10 +41,10 @@ public class practice_02_08 {
                 cd=sc.nextInt();
             }while(cd<2||cd>36);
 
-            dno=cardConvR(no, cd, cno);
+            dno=cardConv(no, cd, cno);
 
-            System.out.print("base"+cd+" is ");
-            for(int i=dno-1;i>=0;i--){
+            System.out.print("base "+cd+" is ");
+            for(int i=0;i<cno.length;i++){
                 System.out.print(cno[i]);
             }
             System.out.println();
